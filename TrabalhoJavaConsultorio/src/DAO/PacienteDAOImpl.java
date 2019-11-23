@@ -7,8 +7,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
 import Entidade.Paciente;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class PacienteDAOImpl implements PacienteDAO {
 
@@ -85,6 +86,63 @@ public class PacienteDAOImpl implements PacienteDAO {
 		}
 			
 		return listaPaciente;
+	}
+
+	@Override
+	public List<Paciente> pesquisaPorId(Long id) {
+		List<Paciente> listaPaciente = new ArrayList<>();
+		try {
+		String sql = "SELECT * FROM tb_paciente WHERE id_paciente = ?";
+				
+			PreparedStatement st = con.prepareStatement(sql);
+			st.setLong(1, id);
+			ResultSet rs = st.executeQuery();
+			
+			while(rs.next()) {
+				Paciente p = new Paciente();
+				p.setIdPaciente(rs.getLong("id_paciente"));
+				p.setNomePaciente(rs.getString("nome_paciente"));
+				p.setSexoPaciente(rs.getString("sexo_paciente"));
+				p.setRgPaciente(rs.getString("rg_paciente"));
+				p.setCpfPaciente(rs.getString("cpf_paciente"));
+				p.setDataNascPaciente(rs.getDate("dat_nasc_paciente"));
+				p.setEnderecoPaciente(rs.getString("endereco_paciente"));
+				p.setTelefonePaciente(rs.getString("telefone_paciente"));
+				
+				listaPaciente.add(p);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return listaPaciente;
+	}
+
+	@Override
+	public ObservableList<String> retornarNomesPaciente() {
+		ObservableList<String> listaNomePaciente = 
+				FXCollections.observableArrayList();
+		
+		try {
+		String sql = "SELECT nome_paciente FROM tb_paciente ORDER BY nome_paciente ASC;";
+			PreparedStatement st = con.prepareStatement(sql);
+			 ResultSet rs = st.executeQuery();
+			 
+			while(rs.next()) {
+				String n ;
+				n = rs.getString("nome_paciente");
+				
+				listaNomePaciente.add(n);		
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return listaNomePaciente;
+
 	}
 	
 }

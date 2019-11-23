@@ -1,7 +1,6 @@
 package Controler;
 
 import java.util.List;
-
 import DAO.PacienteDAO;
 import DAO.PacienteDAOImpl;
 import Entidade.Paciente;
@@ -23,8 +22,16 @@ public class PacienteControl {
 	
 	public List<Paciente> pesquisaPorNome(String nome){
 		List<Paciente> lista = pacienteDAO.pesquisarPorNome(nome);
-		listaPaciente.clear();
-		listaPaciente.addAll(lista);
+		this.listaPaciente.clear();
+		this.listaPaciente.addAll(lista);
+		
+		return lista;
+	}
+	
+	public List<Paciente> pesquisaPorId (Long id){
+		List<Paciente> lista = pacienteDAO.pesquisaPorId(id);
+		this.listaPaciente.clear();
+		this.listaPaciente.addAll(lista);
 		
 		return lista;
 	}
@@ -34,4 +41,7 @@ public class PacienteControl {
 		return listaPaciente;
 	}
 	
+	public ObservableList<String> getListaNomePaciente(){
+		return pacienteDAO.retornarNomesPaciente();
+	}
 }

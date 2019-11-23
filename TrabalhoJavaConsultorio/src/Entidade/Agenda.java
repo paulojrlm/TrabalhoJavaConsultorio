@@ -5,7 +5,9 @@ import java.util.Date;
 public class Agenda {
 
 	private Doutor doutor;
-	private Paciente paciente; 
+	private Paciente paciente;
+	private long idDoutor;
+	private long idPaciente;
 	private long idAgenda;
 	private Date dataAgenda;
 	private String turno;
@@ -37,10 +39,10 @@ public class Agenda {
 	public void setDataAgenda(Date dataAgenda) {
 		this.dataAgenda = dataAgenda;
 	}
-	public String getHoraAgenda() {
+	public String getTurno() {
 		return turno;
 	}
-	public void setHoraAgenda(String turno) {
+	public void setTurno(String turno) {
 		this.turno = turno;
 	}
 	public String getStatus() {
@@ -48,6 +50,18 @@ public class Agenda {
 	}
 	public void setStatus(String status) {
 		this.status = status;
+	}
+	public long getIdDoutor() {
+		return idDoutor;
+	}
+	public void setIdDoutor(long idDoutor) {
+		this.idDoutor = idDoutor;
+	}
+	public long getIdPaciente() {
+		return idPaciente;
+	}
+	public void setIdPaciente(long idPaciente) {
+		this.idPaciente = idPaciente;
 	}
 	
 	

@@ -6,6 +6,8 @@ import java.util.Date;
 import java.util.List;
 import Controler.PacienteControl;
 import Entidade.Paciente;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
@@ -20,7 +22,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
@@ -119,6 +120,17 @@ public class BoundaryPaciente implements BoundaryConteudo {
 							colRgPaciente,colCpfPaciente,colDataNasc,colTelefonePaciente,colEnderecoPaciente);
 		
 		tabela.setItems(pacienteControl.getLista());
+		
+		tabela.getSelectionModel().selectedItemProperty()
+					.addListener(new ChangeListener<Paciente>() {
+			@Override
+			public void changed(ObservableValue<? extends Paciente> observable,
+					Paciente oldValue,
+					Paciente newValue) {
+				doPacienteParaFormulario(newValue);
+				
+			}
+		});
 		
 		painelPrincipal.setBottom(tabela);
 		
